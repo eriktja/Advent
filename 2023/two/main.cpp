@@ -1,9 +1,10 @@
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
-uint32_t first(ifstream stream);
+uint32_t first(ifstream &stream);
 class Game 
 {
     public: 
@@ -12,6 +13,7 @@ class Game
         int red;
         int green;
 
+    Game(){}
     Game(int game, int blue, int red, int green):game(game),blue(blue),red(red),green(green){}
 
 };
@@ -30,17 +32,27 @@ int main(int argc, char *argv[])
         printf("Failed to open input file\n");
     }
 
-    Game a = Game(1, 2, 3, 4);
+    uint32_t a = first(inputfile);
 
     inputfile.close();
     return 0;
 }
 
-uint32_t first(ifstream stream)
+uint32_t first(ifstream &stream)
 {
     uint32_t sum;
     string line;
 
+    while (getline(stream, line)) 
+    {
+        int pos = line.find(':');
+        
+        Game a;
+        a.game = stoi(line.substr(5, pos-5));
+
+        
+
+    }
 
     return 0;
 }
