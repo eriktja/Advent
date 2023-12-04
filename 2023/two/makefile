@@ -1,3 +1,3 @@
 default:
 	g++ main.cpp -o main
-	./main input.txt
+	./main a.txt

@@ -60,7 +60,7 @@ uint32_t first(ifstream &stream)
 
                 if (j+1 >=length || !isdigit(current[j+1]))
                 {
-                    if (number.size() > 0 && isAdjacent(lines, i, j - number.size(), j)) 
+                    if (number.size() > 0 && isAdjacent(lines, i, j - number.size(), j, '.')) 
                     {
                         int combined = 0;
                         int nSize = number.size();
@@ -86,7 +86,7 @@ uint32_t first(ifstream &stream)
     return 0;
 }
 
-bool isAdjacent(vector<string> &lines, int row, int startIndex, int endIndex)
+bool isAdjacent(vector<string> &lines, int row, int startIndex, int endIndex, char symbol)
 {
     int length = lines.size();
 
@@ -97,7 +97,7 @@ bool isAdjacent(vector<string> &lines, int row, int startIndex, int endIndex)
             for (int j = startIndex; j <= endIndex+1; j++)
             {
                 // printf("CHECK: %c @ ROW %d | INDEX: %d \n", lines[i][j], i, j);
-                if (j >= 0 && lines[i][j] != '.' && j < lines[i].size())
+                if (j >= 0 && lines[i][j] != symbol && j < lines[i].size())
                 {
                     if (!isdigit(lines[i][j]))
                     {
