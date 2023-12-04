@@ -3,11 +3,12 @@
 #include <vector>
 #include <cmath>
 #include <unordered_map>
+#include <sstream>
 using namespace std;
 
 uint32_t first(ifstream &stream);
 uint32_t second(ifstream &stream);
-bool isAdjacent(vector<string> &lines, int row, int startIndex, int endIndex);
+bool isAdjacent(vector<string> &lines, int row, int startIndex, int endIndex, char symbol);
 string positionOfSymbol(vector<string> &lines, int row, int startIndex, int endIndex, char symbol);
 
 
@@ -142,9 +143,10 @@ uint32_t second(ifstream &stream)
 
                 if (j+1 >=length || !isdigit(current[j+1]))
                 {
-                    string symbolPos = "";
-                    if (number.size() > 0 && (symbolPos = positionOfSymbol(lines, i, j - number.size(), j, '*')) != "") 
+                    string symbolPos = positionOfSymbol(lines, i, j - number.size(), j, '*');
+                    if (number.size() > 0 && symbolPos != "") 
                     {
+                        cout << "SYMBOL: " << symbolPos << endl;
                         int combined = 0;
                         int nSize = number.size();
                         for (int k = 0; k < nSize; k++)
@@ -153,21 +155,23 @@ uint32_t second(ifstream &stream)
                         }
                         printf("NUMBER: %d\n", combined);
 
-                        vector<uint32_t> numbers;
                         unordered_map<string, vector<uint32_t>>::const_iterator item = symbols.find(symbolPos);
                         if (item == symbols.end())
                         {
-                            cout << "ADD" << endl;
+                            cout << "NEW" << endl;
+                            vector<uint32_t> numbers;   
+                            cout << "1" << endl;
                             numbers.push_back(combined);
+                            cout << "2" << endl;
                             pair<string, vector<uint32_t>> a = make_pair(symbolPos, numbers);
+                            cout << "3" << endl;
                             symbols.insert(a);
+                            cout << "4" << endl;
                         }
                         else 
                         {
-                            cout << "HELLO" << endl;
                             symbols[symbolPos].push_back((uint32_t)combined);
                         }
-
                         number.clear();
                     }
                 }
@@ -178,11 +182,16 @@ uint32_t second(ifstream &stream)
             }
         }
     }
-            cout << "HELLO" << endl;
+    // cout << "END" << endl;
 
     // pair<string, vector<uint32_t>> it;
     for (auto& it: symbols) {
-        cout<<(it.first); 
+        if (it.second.size() == 2)
+        {
+            printf("SYMBOL: %s  | ", it.first.c_str());
+            printf("NUMBERS: %d | %d\n", it.second[0], it.second[1]);
+            sum += it.second[0] * it.second[1];
+        }
     }
     printf("SUM: %d\n", sum);
     return 0;
@@ -191,7 +200,7 @@ uint32_t second(ifstream &stream)
 string positionOfSymbol(vector<string> &lines, int row, int startIndex, int endIndex, char symbol)
 {
     int length = lines.size();
-
+    stringstream answer;
     for (int i = row - 1; i <= row+1; i++)
     {
         if (i >= 0 && i < length)
@@ -203,13 +212,21 @@ string positionOfSymbol(vector<string> &lines, int row, int startIndex, int endI
                 {
                     if (!isdigit(lines[i][j]) && lines[i][j] == symbol)
                     {
-                        printf("DATA: %s | ROW: %d | START: %d | END: %d | ", lines[row].c_str(), row, startIndex, endIndex);
-                        return string("%d%d", i, j);
+                        // printf("FOUND: %c | ROW %d | INDEX %d\n", lines[i][j], i, j);
+                        // printf("DATA: %s | ROW: %d | START: %d | END: %d | ", lines[row].c_str(), row, startIndex, endIndex);
+
+                        answer << i << " " << j;
+                        return answer.str();
                     }
                 }
             }
         }
     }
 
-    return "";
+    return answer.str();
 }
+
+// WRONG
+//  74613691  LOW  (No idea)
+//  75312571  CORRECT. 
+// 233770310  HIGH (USED TO MANY NUMBERS)
