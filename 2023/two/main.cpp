@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <regex>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class Game
 
 };
 
+regex const color_seperation(R"((\d+)\s+(\w+))");
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +55,7 @@ uint32_t first(ifstream &stream)
     string round; 
     string color;
 
+
     while (getline(stream, line)) 
     {
         int pos = line.find(':');
@@ -63,33 +66,19 @@ uint32_t first(ifstream &stream)
         string gameContent = line.substr(pos+1, line.length());
         // printf("SUBSTRING: %s | POS: %d\n",gameContent.c_str(), pos);
 
-        while ((pos = gameContent.find(';')) != -1)
-        {
-            round = gameContent.substr(0, pos);
-            // printf("ROUND: %s | SUBSTRING: %s | POS: %d\n",round.c_str(), gameContent.c_str(), pos);   
-            gameContent = gameContent.substr(pos+1, gameContent.length());
-            cout << "New ROUND: " << round << endl;
+        sregex_iterator words_begin(line.begin(), line.end(), color_seperation);
+        sregex_iterator words_end;
 
-            while ((pos = round.find(',')) != -1)
-            {
-                color = round.substr(0, pos);
-                printf("GAME: %d:  %s\n",a.game, color.c_str());
-                round = round.substr(pos+1, round.length());
-
-                
-
-                if ((pos = round.find(',')) != -1)
-                {
-                    color = round;
-                }
-            }
-
-
+        cout << "GAME " << a.game << ": ";
+        for (sregex_iterator i = words_begin; i != words_end; ++i) {
+            smatch match = *i;
+            cout << "Number: " << match[1] << ", Color: " << match[2];
         }
-        
+
+        cout << endl;
     }
 
-    return sum;
+    return 0;
 }
 
 bool isPossible(string line)
