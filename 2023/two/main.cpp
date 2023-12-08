@@ -7,7 +7,7 @@
 using namespace std;
 
 uint32_t first(ifstream &stream);
-bool isPossible(string line);
+
 class Game 
 {
     public: 
@@ -15,6 +15,7 @@ class Game
         int blue;
         int red;
         int green;
+        bool valid;
 
     Game(){}
     Game(int game, int blue, int red, int green):game(game),blue(blue),red(red),green(green){}
@@ -45,16 +46,19 @@ int main(int argc, char *argv[])
 
 uint32_t first(ifstream &stream)
 {
-    uint32_t sum;
+    int sum = 0;
+    int sum2 = 0;
     string line;
+    uint32_t currentNumber;
+    string currentString;
 
     uint32_t MAX_RED = 12;
-    uint32_t MAX_BLUE = 13;
-    uint32_t MAX_GREEN = 14;
+    uint32_t MAX_GREEN = 13;
+    uint32_t MAX_BLUE = 14;
 
     string round; 
     string color;
-
+    vector<Game> gameVector;
 
     while (getline(stream, line)) 
     {
@@ -62,6 +66,10 @@ uint32_t first(ifstream &stream)
         
         Game a;
         a.game = stoi(line.substr(5, pos-5));
+        a.blue = 0;
+        a.green = 0;
+        a.red = 0;
+        a.valid = true;
 
         string gameContent = line.substr(pos+1, line.length());
         // printf("SUBSTRING: %s | POS: %d\n",gameContent.c_str(), pos);
@@ -69,26 +77,70 @@ uint32_t first(ifstream &stream)
         sregex_iterator words_begin(line.begin(), line.end(), color_seperation);
         sregex_iterator words_end;
 
-        cout << "GAME " << a.game << ": ";
-        for (sregex_iterator i = words_begin; i != words_end; ++i) {
+        // cout << "GAME " << a.game << ": ";
+        for (sregex_iterator i = words_begin; i != words_end; ++i) 
+        {
             smatch match = *i;
-            cout << "Number: " << match[1] << ", Color: " << match[2];
+            currentNumber = (stoi)(match[1].str());
+            currentString =  match[2].str();
+
+            // cout << "Number: " << currentNumber << ", Color: " << currentString;
+            
+            if (currentString == "blue") 
+            {
+                if (currentNumber > MAX_BLUE) 
+                {
+                    a.valid = false;
+                }
+                if (currentNumber > a.blue) 
+                {
+                    a.blue = currentNumber;
+                }
+            }
+            else if (currentString == "red") 
+            {
+                if (currentNumber > MAX_RED) 
+                {
+                    a.valid = false;
+                }
+                if (currentNumber > a.red) 
+                {
+                    a.red = currentNumber;
+                }
+            }
+            else if (currentString == "green") 
+            {
+                if (currentNumber > MAX_GREEN) 
+                {
+                    a.valid = false;
+                }
+                if (currentNumber > a.green) 
+                {
+                    a.green = currentNumber;
+                }
+            }
         }
 
-        cout << endl;
+        if (a.valid) 
+        {
+            cout << "VALID GAME: "<< a.game<< endl;
+            sum += a.game;
+        }
+        gameVector.push_back(a);     
     }
 
+    int length = gameVector.size();
+    for (int i = 0; i < length; i++) 
+    {
+        Game a = gameVector[i];
+        int product = a.blue * a.green * a.red;
+
+        sum2 += product;
+    }
+
+    cout << endl << "SUM: " << sum << endl;
+    
+    cout << endl << "SUM2: " << sum2 << endl;
+
     return 0;
-}
-
-bool isPossible(string line)
-{
-    uint32_t MAX_RED = 12;
-    uint32_t MAX_BLUE = 13;
-    uint32_t MAX_GREEN = 14;
-
-    vector<uint32_t> number;
-
-    return false;
-
 }
