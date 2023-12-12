@@ -8,6 +8,7 @@ using namespace std;
 
 int first(ifstream &stream);
 int compareHands(vector<int> &h1, vector<int> &h2);
+int countEqual(const std::vector<int>& vec);
 typedef struct
 {
     vector<int> cards;
@@ -87,13 +88,15 @@ int first(ifstream &stream)
         }
     }
 
-
-    for (int i = 0; i < hands.size(); i++)
+    ranked.push_back(hands[0]);
+    for (int i = 1; i < hands.size(); i++)
     {
         
-        for (int j = 0; j < hands.size(); j++)
+        for (int j = 0; j < ranked.size(); j++)
         {
-            compareHands(hands[i].cards, hands[j].cards);
+            int c = compareHands(hands[i].cards, ranked[j].cards);
+
+            // if (c == )
         }
     }
 
@@ -101,11 +104,35 @@ int first(ifstream &stream)
     return 0;
 }
 
+int countEqual(const vector<int>& vec) 
+{
+    int count = 0;
+    for (size_t i = 0; i < vec.size(); ++i) {
+        for (size_t j = i + 1; j < vec.size(); ++j) {
+            if (vec[i] == vec[j]) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 int compareHands(vector<int> &h1, vector<int> &h2)
 {
-    for (int i = 0; i < h1.size(); i++)
-    {
-    }
+    int count1 = countEqual(h1);
+    int count2 = countEqual(h2);
 
-    return 0;
+    if (count1 == 5 || count2 == 5) {
+        return (count1 == count2) ? 0 : (count1 > count2) ? 1 : -1;
+    } else if (count1 == 4 || count2 == 4) {
+        return (count1 == count2) ? 0 : (count1 > count2) ? 1 : -1;
+    } else if (count1 == 3 || count2 == 3) {
+        return (count1 == count2) ? 0 : (count1 > count2) ? 1 : -1;
+    } else if (count1 == 2 && countEqual(h1) == 2 || count2 == 2 && countEqual(h2) == 2) {
+        return (count1 == count2) ? 0 : (count1 > count2) ? 1 : -1;
+    } else if (count1 == 2 || count2 == 2) {
+        return (count1 == count2) ? 0 : (count1 > count2) ? 1 : -1;
+    } else {
+        return 0;
+    }
 }
