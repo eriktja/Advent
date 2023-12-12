@@ -34,7 +34,7 @@ int first(ifstream &stream)
 
     int sum = 0;
 
-    regex numR(R"(\d+)");
+    regex numR(R"(-?\d+)");
 
     while (getline(stream, line))
     {
@@ -46,20 +46,25 @@ int first(ifstream &stream)
         for(sregex_iterator i = start; i != end; i++)
         {
             smatch m = *i;
-            for (int j = 1; j < m.size(); j++)
+            for (int j = 0; j < m.size(); j++)
             {
-                numbers.push_back(stoi(m[j].str()));
+                int b = stoi(m[j].str());
+
+                cout << " " << b << " ";
+
+                numbers.push_back(b);
             }
-
-            int a = rec(numbers);
-            cout << "NUMBER: " << a << endl;
-
-            sum += a;
-
         }
+        cout << endl << endl;
+        int a = rec(numbers);
+        numbers.clear();
+        // cout << endl << endl << "NUMBER2: " << a << endl;
+        sum += a;
     }
 
     cout << "SUM: " << sum << endl;
+
+    return 0;
 }
 
 int rec(vector<int> &numbers)
@@ -68,20 +73,33 @@ int rec(vector<int> &numbers)
     vector<int> subVector;
     for (int i = 0; i < numbers.size()-1; i++)
     {
-        int num = numbers[i+1] - numbers[i];
-        if (num != 0)
+        int diff =  numbers[i] - numbers[i+1];
+        if (diff != 0)
         {
-            work = false;
+            work = true;
         }
-        subVector.push_back(numbers[i+1] - numbers[i]);
+
+        if (diff < 0)
+        {
+            diff *= -1;
+        }
+
+        cout <<  "NUMBERS: " << numbers[i] << " - " << numbers[i+1] << "  DIFF: " << diff << endl;
+
+        subVector.push_back(diff);
     }
+    
     int last = 0;
     if (work)
     {
         last = rec(subVector);
     }
 
-    int prev = numbers[numbers.size()-2];
+    int prev = numbers[numbers.size()-1];
+
+    // cout << endl << "ADD " << last << " + " << prev << endl;
     
-    return last + prev;
+    int result = last + prev;
+ 
+    return result;
 }
