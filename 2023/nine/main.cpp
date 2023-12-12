@@ -5,6 +5,7 @@
 using namespace std;
 
 int first(ifstream &stream);
+int rec(vector<int> &numbers);
 
 int main(int argc, char *argv[])
 {
@@ -50,15 +51,37 @@ int first(ifstream &stream)
                 numbers.push_back(stoi(m[j].str()));
             }
 
+            int a = rec(numbers);
+            cout << "NUMBER: " << a << endl;
+
+            sum += a;
 
         }
     }
+
+    cout << "SUM: " << sum << endl;
 }
 
 int rec(vector<int> &numbers)
 {
-    for (int i = 0; i < numbers.size(); i++)
+    bool work = false;
+    vector<int> subVector;
+    for (int i = 0; i < numbers.size()-1; i++)
     {
-
+        int num = numbers[i+1] - numbers[i];
+        if (num != 0)
+        {
+            work = false;
+        }
+        subVector.push_back(numbers[i+1] - numbers[i]);
     }
+    int last = 0;
+    if (work)
+    {
+        last = rec(subVector);
+    }
+
+    int prev = numbers[numbers.size()-2];
+    
+    return last + prev;
 }
