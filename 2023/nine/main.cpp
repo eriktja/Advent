@@ -69,19 +69,28 @@ int first(ifstream &stream)
 
 int rec(vector<int> &numbers)
 {
+    if (numbers.size() == 1) {
+        return numbers[0];
+    }
+
     bool work = false;
     vector<int> subVector;
     for (int i = 0; i < numbers.size()-1; i++)
     {
-        int diff =  numbers[i] - numbers[i+1];
+        int diff = 0;
+        if (numbers[i+1] >= 0 && numbers[i] >= 0) {
+            diff = numbers[i+1] - numbers[i];
+        }
+        else {
+            diff = numbers[i] - numbers[i+1];
+            if (diff > 0)
+            {
+                diff *= -1;
+            }
+        }
         if (diff != 0)
         {
             work = true;
-        }
-
-        if (diff < 0)
-        {
-            diff *= -1;
         }
 
         cout <<  "NUMBERS: " << numbers[i] << " - " << numbers[i+1] << "  DIFF: " << diff << endl;
@@ -97,7 +106,7 @@ int rec(vector<int> &numbers)
 
     int prev = numbers[numbers.size()-1];
 
-    // cout << endl << "ADD " << last << " + " << prev << endl;
+    cout << endl << "ADD " << last << " + " << prev << endl;
     
     int result = last + prev;
  
