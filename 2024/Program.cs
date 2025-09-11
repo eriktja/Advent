@@ -7,7 +7,7 @@ try
     string fileContent = File.ReadAllText(filePath);
     // var stringArray = fileContent.Split("\n");
 
-    var result = Three.Solution(fileContent);
+    var result = Three.Solution2(fileContent);
 
     Console.WriteLine(result);
 }
