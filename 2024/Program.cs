@@ -1,13 +1,13 @@
 ﻿using System.IO;
 
-string filePath = "./Data/3.txt";
+string filePath = "./Data/4.txt";
 
 try
 {
     string fileContent = File.ReadAllText(filePath);
-    // var stringArray = fileContent.Split("\n");
+    var stringArray = fileContent.Split("\n");
 
-    var result = Three.Solution2(fileContent);
+    var result = Four.Solution1(stringArray);
 
     Console.WriteLine(result);
 }
