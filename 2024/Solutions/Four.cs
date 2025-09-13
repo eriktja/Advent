@@ -3,7 +3,7 @@ public class Four
     public static int Solution1(string[] stringArray)
     {
         var result = 0;
-        var maxX = stringArray[0].Length - 2;   //One extra because of \n
+        var maxX = stringArray[0].Length - 2;   //One extra because of \n ?
         var maxY = stringArray.Length - 1;
 
         for (var x = 0; x <= maxX; x++)
@@ -28,6 +28,30 @@ public class Four
                         result++;
                     if (CheckNorthWest(stringArray, x, y))
                         result++;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static int Solution2(string[] stringArray)
+    {
+        var result = 0;
+        var maxX = stringArray[0].Length - 2;   //One extra because of \n ?
+        var maxY = stringArray.Length - 1;
+
+        for (var x = 1; x < maxX; x++)
+        {
+            for (var y = 1; y < maxY; y++)
+            {
+                if (stringArray[y][x] == 'A' &&
+                    ((stringArray[y - 1][x - 1] == 'M' && stringArray[y + 1][x + 1] == 'S') ||
+                     (stringArray[y - 1][x - 1] == 'S' && stringArray[y + 1][x + 1] == 'M')) &&
+                    ((stringArray[y - 1][x + 1] == 'M' && stringArray[y + 1][x - 1] == 'S') ||
+                     (stringArray[y - 1][x + 1] == 'S' && stringArray[y + 1][x - 1] == 'M')))
+                {
+                    result++;
                 }
             }
         }

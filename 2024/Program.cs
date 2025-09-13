@@ -7,9 +7,8 @@ try
     string fileContent = File.ReadAllText(filePath);
     var stringArray = fileContent.Split("\n");
 
-    var result = Four.Solution1(stringArray);
-
-    Console.WriteLine(result);
+    Console.WriteLine(Four.Solution1(stringArray));
+    Console.WriteLine(Four.Solution2(stringArray));
 }
 catch (IOException e)
 {
