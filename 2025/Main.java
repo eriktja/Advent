@@ -3,13 +3,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import one.One;
+import Two.Two;
+
 
 public class Main {
     public static void main(String[] args){
-        var data = readFromFile("one/input.txt");
-        // var data = readFromFile("one/testInput.txt");
-        int result = One.Work(data);
+        var data = readFromFile("solutionTwo/input.txt");
+        // var data = readFromFile("solutionTwo/testInput.txt");
+        int result = Two.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
     }
