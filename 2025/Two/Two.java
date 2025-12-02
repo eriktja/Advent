@@ -2,8 +2,8 @@ package Two;
 import java.util.ArrayList;
 
 public class Two {
-    public static int Work(ArrayList<String> input){
-        int result = 0;
+    public static long Work(ArrayList<String> input){
+        long result = 0;
 
         String data = input.get(0);
 
@@ -14,7 +14,7 @@ public class Two {
             long start = Long.parseLong(range[0]);
             long end = Long.parseLong(range[1]);
 
-            System.out.printf("Start: %d\nEnd: %d", start, end);
+            // System.out.printf("Start: %d\nEnd: %d\n\n", start, end);
 
             result += Do(start, end);
         }
@@ -23,10 +23,56 @@ public class Two {
         return result;
     }
 
-    public static int Do(long start, long end) {
-        int result = 0;
+    public static long Do(long start, long end) {
+        long result = 0;
 
+        while (start <= end) {
+            if (SecondCheck(start)) {
+                result+=start;  
+            }
+            start++;
+        }
 
         return result;
+    }
+
+    public static boolean FirstCheck(long number) {
+        String textNumber = String.format("%d", number);
+        int half = textNumber.length() / 2;
+        String firstHalf = textNumber.substring(0, half);
+
+        if (firstHalf.startsWith("0")) {
+            return false;
+        } 
+
+        String secondHalf = textNumber.substring(half, textNumber.length());
+        return firstHalf.equals(secondHalf);
+    }
+
+    public static boolean SecondCheck(long number) {
+        String textNumber = String.format("%d", number);
+
+        for (int i = 0; i < textNumber.length() / 2; i++) {
+            
+            String subString = textNumber.substring(0, i+1);
+            int step = subString.length();
+            
+            for (int j = step; j < textNumber.length() - step; j += step) {
+            
+                String check = textNumber.substring(j, j + step);
+            
+                if (!subString.equals(check)) {
+                    if (step == textNumber.length() / 2) 
+                        return false;
+                    break;
+                }
+
+                if (step + j == textNumber.length()) {
+                    return true;
+                }
+            }
+        }
+        
+        return true;
     }
 }

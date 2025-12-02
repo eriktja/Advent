@@ -8,11 +8,14 @@ import Two.Two;
 
 public class Main {
     public static void main(String[] args){
-        var data = readFromFile("solutionTwo/input.txt");
-        // var data = readFromFile("solutionTwo/testInput.txt");
-        int result = Two.Work(data);
+        // var data = readFromFile("Two/input.txt");
+        var data = readFromFile("Two/testInput.txt");
+        long result = Two.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
+
+        long expect = 4174379265L;
+        System.out.printf("TEST: %s%n", result == expect ? "Passed" : "Failed");
     }
 
 
