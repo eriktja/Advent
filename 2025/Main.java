@@ -3,14 +3,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Four.Four;
 import Three.Three;
 
 
 public class Main {
     public static void main(String[] args){
-        ArrayList<String> data = readFromFile("Three/input.txt");
-        // ArrayList<String> data = readFromFile("Three/testInput.txt");
-        long result = Three.Work(data);
+        ArrayList<String> data = readFromFile("Four/input.txt");
+        // ArrayList<String> data = readFromFile("Four/testInput.txt");
+        int result = Four.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
 

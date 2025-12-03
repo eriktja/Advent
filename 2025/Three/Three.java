@@ -15,10 +15,7 @@ public class Three {
     }
 
     public static int first(String batteries) {
-        int result = 0;
-        
         int firstIndex = 0;
-        int secondIndex = 1;
 
         int firstValue = 0;
         for (var i = 0; i < batteries.length()-1; i++) {
@@ -35,7 +32,6 @@ public class Three {
             int checkValue = Integer.parseInt(batteries.substring(i, i+1));
 
             if (secondValue < checkValue) {
-                secondIndex = i;
                 secondValue = checkValue;
             }
         }
