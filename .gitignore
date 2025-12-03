@@ -35,4 +35,8 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 
+
 *.class
+*.iml
+*/out/*
+*/.idea

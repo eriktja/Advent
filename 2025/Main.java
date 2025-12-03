@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Four.Four;
-import Three.Three;
 
 
 public class Main {
