@@ -57,13 +57,11 @@ public class Two {
             String subString = textNumber.substring(0, i+1);
             int step = subString.length();
             
-            for (int j = step; j < textNumber.length() - step; j += step) {
+            for (int j = step; j < textNumber.length(); j += step) {
             
-                String check = textNumber.substring(j, j + step);
+                String check = textNumber.substring(j, Math.min(j + step, textNumber.length()));
             
                 if (!subString.equals(check)) {
-                    if (step == textNumber.length() / 2) 
-                        return false;
                     break;
                 }
 
@@ -73,6 +71,6 @@ public class Two {
             }
         }
         
-        return true;
+        return false;
     }
 }

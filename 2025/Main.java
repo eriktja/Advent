@@ -8,8 +8,8 @@ import Two.Two;
 
 public class Main {
     public static void main(String[] args){
-        // var data = readFromFile("Two/input.txt");
-        var data = readFromFile("Two/testInput.txt");
+        var data = readFromFile("Two/input.txt");
+        // var data = readFromFile("Two/testInput.txt");
         long result = Two.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
