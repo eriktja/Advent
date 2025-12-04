@@ -7,14 +7,14 @@ import Four.Four;
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(){
         ArrayList<String> data = readFromFile("Four/input.txt");
-        // ArrayList<String> data = readFromFile("Four/testInput.txt");
+        //ArrayList<String> data = readFromFile("Four/testInput.txt");
         int result = Four.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
 
-        long expect = 3121910778619L;
+        int expect = 43;
         System.out.printf("TEST: %s%n", result == expect ? "Passed" : "Failed");
     }
 
