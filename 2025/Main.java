@@ -3,18 +3,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Five.Five;
 import Four.Four;
 
 
 public class Main {
     public static void main(){
-        ArrayList<String> data = readFromFile("Four/input.txt");
-        //ArrayList<String> data = readFromFile("Four/testInput.txt");
-        int result = Four.Work(data);
+        ArrayList<String> data = readFromFile("Five/input.txt");
+        //ArrayList<String> data = readFromFile("Five/testInput.txt");
+        long result = Five.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
 
-        int expect = 43;
+        long expect = 14;
         System.out.printf("TEST: %s%n", result == expect ? "Passed" : "Failed");
     }
 
