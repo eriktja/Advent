@@ -3,17 +3,24 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Eight.Eight;
+import Nine.Nine;
 import Seven.Seven;
 
 public class Main {
     public static void main(){
-        ArrayList<String> data = readFromFile("Seven/input.txt");
-        // ArrayList<String> data = readFromFile("Seven/testInput.txt");
-        long result = Seven.Work(data);
+        //ArrayList<String> data = readFromFile("Eight/input.txt");
+        ArrayList<String> data = readFromFile("Eight/testInput.txt");
+
+        //ArrayList<String> data = readFromFile("Nine/input.txt");
+        //ArrayList<String> data = readFromFile("Nine/testInput.txt");
+
+        long result = Eight.Work(data);
+        //long result = Nine.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
 
-        long expect = 40;
+        long expect = 50;
         System.out.printf("TEST: %s%n", result == expect ? "Passed" : "Failed");
     }
 
