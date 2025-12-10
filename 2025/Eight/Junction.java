@@ -19,7 +19,7 @@ public class Junction {
         this.z = Integer.parseInt(c[2].trim());
     }
 
-    public long Compare(Junction other) {
+    public long distance(Junction other) {
         long dx = this.x - other.x;
         long dy = this.y - other.y;
         long dz = this.z - other.z;

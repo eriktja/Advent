@@ -10,7 +10,46 @@ public class Eight {
        return result;
     }
 
-    public static long first(ArrayList<String> input, int connections) {
+    public static long part1(ArrayList<String> input, int n){
+        ArrayList<Junction> junctions = new ArrayList<>();
+
+        for (int i = 0; i < input.size(); i++) {
+            String s =  input.get(i);
+            junctions.add(new Junction(i, s));
+        }
+
+        HashMap<Integer, Circuits> circuits = new HashMap<>();
+        ArrayList<Connection> connections = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                Junction j1 = junctions.get(i);
+                Junction j2 = junctions.get(j);
+
+                long distance = j1.distance(j2);
+                var root = findRoot(j1);
+                j2.root = root;
+
+                connections.add(new Connection(j1, j2, distance));
+
+                if (circuits.containsKey(root.id)) {
+                    circuits.get(root.id).junctions.add(j2);
+                }
+                else {
+                    var list = new ArrayList<Junction>();
+                    list.add(j2);
+                    list.add(j2);
+                    circuits.put(root.id, new Circuits(root.id, list));
+                }
+            }
+        }
+
+
+
+        return 0L;
+    }
+
+    public static long first(ArrayList<String> input, int n) {
         long result = 0;
 
         ArrayList<Junction> junctions = new ArrayList<>();
@@ -23,7 +62,7 @@ public class Eight {
         ArrayList<Pairs> pairs = new ArrayList<>();
         HashMap<Integer, Junction> startJunctions = new HashMap<>();
 
-        for (int iter = 0; iter < connections; iter++) {
+        for (int iter = 0; iter < n; iter++) {
             long minDiff = Long.MAX_VALUE;
             Junction bestJ1 = null;
             Junction bestJ2 = null;
@@ -39,7 +78,7 @@ public class Eight {
 
                     if (j1.id == j2.id) continue;
 
-                    long diff = j1.Compare(j2);
+                    long diff = j1.distance(j2);
 
                     if (diff < minDiff) {
                         bestJ1 = j1;
