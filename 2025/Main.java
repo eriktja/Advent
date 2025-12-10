@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Eight.Eight;
-import Nine.Nine;
-import Seven.Seven;
 
 public class Main {
     public static void main(){
-        //ArrayList<String> data = readFromFile("Eight/input.txt");
-        ArrayList<String> data = readFromFile("Eight/testInput.txt");
+        ArrayList<String> data = readFromFile("Eight/input.txt");
+       // ArrayList<String> data = readFromFile("Eight/testInput.txt");
 
         //ArrayList<String> data = readFromFile("Nine/input.txt");
         //ArrayList<String> data = readFromFile("Nine/testInput.txt");
