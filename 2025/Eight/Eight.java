@@ -8,9 +8,9 @@ import java.util.function.Function;
 
 public class Eight {
     public static long Work(ArrayList<String> input) {
-        return part1(input, 1000);
+        return first(input, 1000);
     }
-    public static long part1(ArrayList<String> input, int n) {
+    public static long first(ArrayList<String> input, int n) {
 
         ArrayList<Junction> junctions = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
