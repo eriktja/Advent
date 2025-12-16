@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Eight.Eight;
+import Eleven.Eleven;
 
 public class Main {
     public static void main(){
-        ArrayList<String> data = readFromFile("Eight/input.txt");
-       // ArrayList<String> data = readFromFile("Eight/testInput.txt");
+        ArrayList<String> data = readFromFile("Eleven/input.txt");
+     //   ArrayList<String> data = readFromFile("Eleven/testInput2.txt");
 
-        //ArrayList<String> data = readFromFile("Nine/input.txt");
-        //ArrayList<String> data = readFromFile("Nine/testInput.txt");
-
-        long result = Eight.Work(data);
-        //long result = Nine.Work(data);
+        long result = Eleven.Work(data);
 
         System.out.printf("ANSWER: %d\n", result);
 
